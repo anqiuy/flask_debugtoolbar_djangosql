@@ -10,7 +10,7 @@ setup(
     long_description_content_type='text',
     author="Joey",
     author_email="qiuyu.an@hotmail.com",
-    url="https://github.com/yourusername/flask-debugtoolbar-djangosql",
+    url="https://github.com/anqiuy/flask_debugtoolbar_djangosql",
     license="MIT",
     packages=find_packages(),
     install_requires=[

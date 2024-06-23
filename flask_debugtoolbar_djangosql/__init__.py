@@ -1,5 +1,2 @@
-# flask_debugtoolbar_djangosql/__init__.py
-
-from .panel.py import DjangoSQLPanel
-
-__all__ = ["DjangoSQLPanel"]
+# following PEP 386, versiontools will pick it up
+__version__ = (0, 1, 0, "final", 0)
