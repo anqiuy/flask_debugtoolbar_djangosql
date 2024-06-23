@@ -1,0 +1,75 @@
+<!-- flask_debugtoolbar_djangosql/templates/panels/django_sql.html -->
+<div class="panel-content">
+    <h2>Django SQL Queries</h2>
+    <p>Total Queries: {{ queries|length }}</p>
+    <p>Total Duration: {{ queries | map(attribute='duration') | sum | round(2) }}ms</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Query</th>
+                <th>Parameters</th>
+                <th>Duration (ms)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for query in queries %}
+                <tr class="{{ 'odd-row' if loop.index0 % 2 == 0 else 'even-row' }}">
+                    <td>{{ query.time }}</td>
+                    <td>{{ query.sql }}</td>
+                    <td>{{ query.params }}</td>
+                    <td>{{ "%.4f" | format(query.duration) }}</td>
+                </tr>
+                {% if query.stack %}
+                    <tr class="stacktrace-row">
+                        <td colspan="4">
+                            <a href="javascript:void(0);" class="toggle-stacktrace">Show Stacktrace</a>
+                            <pre class="stacktrace" style="display: none; white-space: pre-wrap;">
+{% for frame in query.stack %}
+    <span style="color: grey;">File "{{ frame.filename }}", line {{ frame.lineno }}</span>, in <strong style="color: black; font-weight: bold;">{{ frame.function }}</strong>:
+    {{ frame.code_context[0].strip() if frame.code_context else 'N/A' }}
+{% endfor %}
+                            </pre>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .stacktrace-row {
+        background-color: #f0f0f0;
+    }
+
+    .stacktrace {
+        margin: 0;
+        padding: 5px;
+    }
+    .even-row {
+        background-color: #f9f9f9;
+    }
+    .odd-row {
+        background-color: #e0e0e0;
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var toggles = document.querySelectorAll(".toggle-stacktrace");
+
+    toggles.forEach(function(toggle) {
+        toggle.addEventListener("click", function() {
+            var stacktrace = this.nextElementSibling;
+            if (stacktrace.style.display === "none") {
+                stacktrace.style.display = "block";
+                this.textContent = "Hide Stacktrace";
+            } else {
+                stacktrace.style.display = "none";
+                this.textContent = "Show Stacktrace";
+            }
+        });
+    });
+});
+</script>
