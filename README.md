@@ -8,6 +8,7 @@ Install the package using pip:
 
 ```bash
 pip install Flask-DebugToolbar-DjangoSQL
+```
 
 ## Usage
 
@@ -24,7 +25,7 @@ app.debug = True
 
 # Configuration for Flask-DebugToolbar
 app.config['DEBUG_TB_PANELS'] = [
-    'flask_debugtoolbar_djangosql.DjangoSQLPanel'
+    'flask_debugtoolbar_djangosql.panel.DjangoSQLPanel'
 ]
 
 toolbar = DebugToolbarExtension(app)

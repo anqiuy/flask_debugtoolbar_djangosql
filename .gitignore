@@ -4,3 +4,6 @@
 *.egg
 .python-version
 .venv
+.DS_Store
+dist
+build

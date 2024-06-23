@@ -1,0 +1,1 @@
+include flask_debugtoolbar_djangosql/templates/panels/*.html
